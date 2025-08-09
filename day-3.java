@@ -1,31 +1,29 @@
-import java.util.Scanner;
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter first number: ");
-        double num1 = sc.nextDouble();
-        System.out.println("Enter second number: ");
-        double num2 = sc.nextDouble();
-        System.out.println("Enter operation (+, -, *, /): ");
-        char op = sc.next().charAt(0);
-        double result;
-        if (op == '+') {
-            result = num1 + num2;
-        } else if (op == '-') {
-            result = num1 - num2;
-        } else if (op == '*') {
-            result = num1 * num2;
-        } else if (op == '/') {
-            if (num2 != 0)
-                result = num1 / num2;
-            else {
-                System.out.println("Error: Division by zero!");
-                return;
-            }
-        } else {
-            System.out.println("Invalid operation!");
-            return;
+        int basePrice = 120;
+        System.out.print("Enter age: ");
+        int age = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter show time (Morning/Evening/Night): ");
+        String show = sc.nextLine();
+        System.out.print("Are you a member? (Y/N): ");
+        char isMember = sc.next().charAt(0);
+        double price = basePrice;
+        if (age < 12) {
+            price *= 0.5;
+        } else if (age > 60) {
+            price *= 0.7;
         }
-        System.out.println("Result: " + result);
+        if (show.equalsIgnoreCase("Evening")) {
+            price += 30;
+        } else if (show.equalsIgnoreCase("Night")) {
+            price += 20;
+        }
+        if (isMember == 'Y' || isMember == 'y') {
+            price *= 0.9;
+        }
+        System.out.printf("Final Ticket Price: ₹%.2f", price);
     }
 }
