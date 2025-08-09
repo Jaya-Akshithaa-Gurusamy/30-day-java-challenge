@@ -4,18 +4,30 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the number of units consumed: ");
         int units = sc.nextInt();
-        double totalBill = 0.0;
+        double baseAmount = 0.0;
+        double tax = 0.0;
+        double fixedCharge = 50;
+        System.out.println("\n--- BILL BREAKDOWN ---");
         if (units <= 100) {
-            totalBill = units * 1.5;
+            baseAmount = units * 1.5;
+            System.out.println("Units (" + units + ") x ₹1.5 = ₹" + (units * 1.5));
         } else if (units <= 200) {
-            totalBill = 100 * 1.5 + (units - 100) * 2.5;
+            baseAmount = 100 * 1.5 + (units - 100) * 2.5;
+            System.out.println("First 100 units x ₹1.5 = ₹150.0");
+            System.out.println("Next " + (units - 100) + " units x ₹2.5 = ₹" + ((units - 100) * 2.5));
         } else {
-            totalBill = 100 * 1.5 + 100 * 2.5 + (units - 200) * 4.0;
+            baseAmount = 100 * 1.5 + 100 * 2.5 + (units - 200) * 4.0;
+            System.out.println("First 100 units x ₹1.5 = ₹150.0");
+            System.out.println("Next 100 units x ₹2.5 = ₹250.0");
+            System.out.println("Remaining " + (units - 200) + " units x ₹4.0 = ₹" + ((units - 200) * 4.0));
         }
-        totalBill += 50;
-        if (totalBill > 500) {
-            totalBill += totalBill * 0.18;
+        System.out.println("Fixed meter charge = ₹" + fixedCharge);
+        double totalBeforeTax = baseAmount + fixedCharge;
+        if (totalBeforeTax > 500) {
+            tax = totalBeforeTax * 0.18;
+            System.out.println("Tax (18%) = ₹" + String.format("%.2f", tax));
         }
-        System.out.printf("Total Electricity Bill: ₹%.2f", totalBill);
+        double finalBill = totalBeforeTax + tax;
+        System.out.printf("\nTotal Electricity Bill = ₹%.2f\n", finalBill);
     }
 }
